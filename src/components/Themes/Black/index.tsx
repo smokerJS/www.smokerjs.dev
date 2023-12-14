@@ -1,19 +1,17 @@
 'use client';
 
 import Image from 'next/image';
-import styles from './page.module.scss';
 import Path from '@/models/Path';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import $ from './style.module.scss';
 
-export default function Home() {
-  const pathname = usePathname();
+const BlackTheme = () => {
   return (
-    <main className={styles.main} aria-hidden={pathname === Path.HOME}>
-      <div className={styles.description}>
+    <div className={$.wrap}>
+      <div className={$.description}>
         <p>
           Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
+          <code className={$.code}>src/app/page.tsx</code>
         </p>
         <div>
           <Link href={Path.BLOG}>
@@ -21,7 +19,7 @@ export default function Home() {
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
-              className={styles.vercelLogo}
+              className={$.vercelLogo}
               width={100}
               height={24}
               priority
@@ -30,9 +28,9 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.center}>
+      <div className={$.center}>
         <Image
-          className={styles.logo}
+          className={$.logo}
           src="/next.svg"
           alt="Next.js Logo"
           width={180}
@@ -41,10 +39,10 @@ export default function Home() {
         />
       </div>
 
-      <div className={styles.grid}>
+      <div className={$.grid}>
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
+          className={$.card}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -56,7 +54,7 @@ export default function Home() {
 
         <a
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
+          className={$.card}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -68,7 +66,7 @@ export default function Home() {
 
         <a
           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
+          className={$.card}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -80,18 +78,18 @@ export default function Home() {
 
         <a
           href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
+          className={$.card}
           target="_blank"
           rel="noopener noreferrer"
         >
           <h2>
             Deploy <span>-&gt;</span>
           </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
+          <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
         </a>
       </div>
-    </main>
+    </div>
   );
-}
+};
+
+export default BlackTheme;

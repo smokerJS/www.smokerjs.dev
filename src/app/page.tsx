@@ -1,6 +1,7 @@
-import Image from 'next/image';
-import styles from './page.module.scss';
+import HomePageContents from '@/components/home/PageContents';
 
-export default function Home() {
-  return <div>aaasa</div>;
-}
+const Home = () => {
+  return <HomePageContents />;
+};
+
+export default Home;

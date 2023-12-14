@@ -1,10 +1,7 @@
+import BlogPageContents from '@/components/blog/PageContents';
+
 const Blog = () => {
-  return (
-    <div>
-      <div>bg</div>
-      <div>asa</div>
-    </div>
-  );
+  return <BlogPageContents />;
 };
 
 export default Blog;
