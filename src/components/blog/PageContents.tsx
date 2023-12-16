@@ -1,21 +1,42 @@
 'use client';
 
-import { useState } from 'react';
+import { WheelEventHandler, useRef, useState } from 'react';
 import $ from './style.module.scss';
 import Category from './Category';
 
 const BlogPageContents = () => {
   const [indexes, setIndexes] = useState([1, 2, 3, 4, 5]);
+  const $throttle = useRef(false);
 
-  const handleClick = () => {
+  const handleNext = () => {
     const newIndexes = [...indexes];
-    newIndexes.push(newIndexes.shift() || 0)
+    newIndexes.push(newIndexes.shift() || 0);
     setIndexes(newIndexes)
   }
 
+  const handlePrev = () => {
+    const newIndexes = [...indexes];
+    newIndexes.unshift(newIndexes.pop() || 0);
+    setIndexes(newIndexes);
+  }
+
+  const hadleWheel: WheelEventHandler<HTMLDivElement> = (event) => {
+    if ($throttle.current) return;
+    if (!$throttle.current) {
+      $throttle.current = true;
+      if (event.deltaY > 0) {
+        handleNext();
+      } else {
+        handlePrev();
+      }
+      setTimeout(() => {
+        $throttle.current = false;
+      }, 300);
+    }
+  }
 
   return (
-    <div className={$.container} onClick={handleClick}>
+    <div className={$.container} onWheel={hadleWheel}>
       <ul>
         <li>1</li>
         <li>2</li>
