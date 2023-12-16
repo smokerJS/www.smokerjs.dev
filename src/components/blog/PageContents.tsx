@@ -2,12 +2,15 @@
 
 import { useState } from 'react';
 import $ from './style.module.scss';
+import Category from './Category';
 
 const BlogPageContents = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [indexes, setIndexes] = useState([1, 2, 3, 4, 5]);
 
   const handleClick = () => {
-    setCurrentIndex(currentIndex + 1)
+    const newIndexes = [...indexes];
+    newIndexes.push(newIndexes.shift() || 0)
+    setIndexes(newIndexes)
   }
 
 
@@ -20,13 +23,12 @@ const BlogPageContents = () => {
         <li>4</li>
         <li>5</li>
       </ul>
-
-
-      <div className={`${$.category} ${$[`s${currentIndex + 1}`]}`}>카테고리</div>
-      <div className={`${$.category} ${$[`s${currentIndex + 2}`]}`}>카테고리</div>
-      <div className={`${$.category} ${$[`s${currentIndex + 3}`]}`}>카테고리</div>
-      <div className={`${$.category} ${$[`s${currentIndex + 4}`]}`}>카테고리</div>
-      <div className={`${$.category} ${$[`s${currentIndex + 5}`]}`}>카테고리</div>
+      <div className={$.category_backgorund}/>
+      <Category index={indexes[0]}/>
+      <Category index={indexes[1]}/>
+      <Category index={indexes[2]}/>
+      <Category index={indexes[3]}/>
+      <Category index={indexes[4]}/>
     </div>
   );
 };

@@ -1,0 +1,39 @@
+.posts {
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.post {
+    display: flex;
+    flex-wrap: wrap;
+    color: $GRAY_4;
+    padding: 15px 17px 15px 12px;
+
+    &:hover {
+        background-color: rgba(255, 255, 255);
+        color: $BLACK;
+    }
+
+    &:first-child {
+        padding-top: 20px;
+    }
+}
+
+.post_title {
+    font-size: 18px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.post_tag {
+    font-size: 12px;
+    margin-right: 5px;
+    &::before {
+        content: "#";
+    }
+}
+
+.post_created_at {
+    margin-left: auto;
+    font-size: 12px;
+}
