@@ -1,0 +1,57 @@
+.footer {
+    width: 100%;
+    background-color: rgba(255, 255, 255, .9);
+    padding: 0 30px 40px 30px;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.category_name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.index_button {
+
+}
+
+.other_posts {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.other_post {
+    position: relative;
+    width: 100%;
+    text-align: right;
+
+    & > strong {
+        font-size: 18px;
+    }
+
+    &::before {
+        position: absolute;
+        bottom: -19px;
+        right: 0;
+        content: "다음글";
+        font-size: 14px;
+    }
+
+    &:first-child {
+        &:not(:last-of-type), &[data-page="prev"] {
+            text-align: left;
+            &::before {
+                top: -19px;
+                left: 0;
+                content: "이전글";
+                font-size: 14px;
+            }
+        }
+    }
+}

@@ -33,13 +33,13 @@
     }
 
     &.s4 {
-        transform: rotateZ(1deg) rotateX(-2deg) rotateY(10deg) scale(0.8) translate(-35%, -82%);
+        transform: rotateZ(0.3deg) rotateX(0deg) rotateY(10deg) scale(0.8) translate(-35%, -82%);
         z-index: 4;
         opacity: 0.6;
     }
 
     &.s5 {
-        transform: rotateZ(1deg) rotateX(0deg) rotateY(21deg) scale(0.7) translate(-8%, -109%);
+        transform: rotateZ(0.3deg) rotateX(0deg) rotateY(21deg) scale(0.7) translate(-14%, -109%);
         z-index: 5;
         opacity: 0.3;
     }
