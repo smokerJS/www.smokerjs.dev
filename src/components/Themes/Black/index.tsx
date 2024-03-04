@@ -1,94 +1,85 @@
-'use client';
-
-import Image from 'next/image';
-import Path from '@/models/Path';
-import Link from 'next/link';
+import { useEffect, useRef } from 'react';
+import backgroundLineImage from './assets/img_background_line.png'
 import $ from './style.module.scss';
 
 const BlackTheme = () => {
+  const $canvas = useRef<HTMLCanvasElement>(null);
+
+
+  const fill = (canvas: HTMLCanvasElement) => {
+    const ctx = canvas.getContext('2d');
+    
+
+    if(!ctx) {
+      return;
+    }
+
+    const { width: imageWidth, height: imageHeight, src} = backgroundLineImage;
+    const image = new Image(imageWidth, imageHeight);
+    image.src = src;
+
+    image.onload = () => {
+      const { innerWidth, innerHeight } = window;
+
+      const defaultWidth = innerHeight * (imageWidth / imageHeight);
+      const defaultHeight = innerHeight;
+      const scale = innerHeight > innerWidth ? 1.3 : 1.1;
+
+      canvas.width = defaultWidth * scale;
+      canvas.height = defaultHeight * scale;
+
+      canvas.style.width = `${canvas.width}px`;
+      canvas.style.height = `${canvas.height}px`;
+
+      const { width: screenWidth, height: screenHeight } = canvas;
+      const drawStartWidth = (screenWidth - defaultWidth) / 2;
+      const drawEndWidth = screenWidth - (drawStartWidth * 2);
+      const drawStartHeight = screenHeight - defaultHeight;
+      const drawEndHeight = defaultHeight;
+
+ 
+      ctx.drawImage(image, drawStartWidth, drawStartHeight, drawEndWidth, drawEndHeight);
+
+
+
+      const can = document.createElement('canvas');
+      can.width = defaultWidth * scale;
+      can.height = defaultHeight * scale;
+
+      can.style.width = canvas.style.width
+      can.style.height = canvas.style.height
+
+      const ctx2 = can.getContext('2d')!
+      ctx2.drawImage(image, drawStartWidth + 200, drawStartHeight + 200, drawEndWidth + 200, drawEndHeight + 200);
+      ctx2.globalCompositeOperation = "source-in";
+      ctx2.fillStyle = "#09f";
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.putImageData(ctx2.getImageData(0, 0, can.width, can.height), drawStartWidth, drawStartHeight)
+
+    }
+  }
+
+  const startAnimation = () => {
+    $canvas.current && fill($canvas.current);
+  }
+
+  useEffect(() => {
+    startAnimation();
+    // 디바운스 걸기
+    window.addEventListener('resize', startAnimation);
+
+    return () => {
+      window.removeEventListener('resize', startAnimation);
+    }
+  }, [])
+
   return (
-    <div className={$.wrap}>
-      <div className={$.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={$.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <Link href={Path.BLOG}>
-            블로그가기
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={$.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </Link>
-        </div>
-      </div>
-
-      <div className={$.center}>
-        <Image
-          className={$.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={$.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={$.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={$.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={$.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={$.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>Instantly deploy your Next.js site to a shareable URL with Vercel.</p>
-        </a>
-      </div>
-    </div>
+    <section className={$.wrap}>
+      <canvas className={$.screen} ref={$canvas}>
+        ss
+      </canvas>
+    </section>
   );
 };
 
